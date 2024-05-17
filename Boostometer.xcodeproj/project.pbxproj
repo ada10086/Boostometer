@@ -1,0 +1,369 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		17B8278F2BF51A6C004B022F /* BoostometerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B8278E2BF51A6C004B022F /* BoostometerApp.swift */; };
+		17B827912BF51A6C004B022F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B827902BF51A6C004B022F /* ContentView.swift */; };
+		17B827932BF51A6D004B022F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B827922BF51A6D004B022F /* Assets.xcassets */; };
+		17B827962BF51A6D004B022F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B827952BF51A6D004B022F /* Preview Assets.xcassets */; };
+		17B8279D2BF529CE004B022F /* BoostometerFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B8279C2BF529CE004B022F /* BoostometerFrame.swift */; };
+		17B8279F2BF74CEB004B022F /* LikeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B8279E2BF74CEB004B022F /* LikeButtonStyle.swift */; };
+		17E9ED002BF7838E00142634 /* MyIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ECFF2BF7838E00142634 /* MyIcon.swift */; };
+		17E9ED022BF794AF00142634 /* BoostometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ED012BF794AF00142634 /* BoostometerView.swift */; };
+		17E9ED042BF79B9900142634 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ED032BF79B9900142634 /* DeleteButton.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		17B8278B2BF51A6C004B022F /* Boostometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Boostometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17B8278E2BF51A6C004B022F /* BoostometerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostometerApp.swift; sourceTree = "<group>"; };
+		17B827902BF51A6C004B022F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		17B827922BF51A6D004B022F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		17B827952BF51A6D004B022F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		17B8279C2BF529CE004B022F /* BoostometerFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostometerFrame.swift; sourceTree = "<group>"; };
+		17B8279E2BF74CEB004B022F /* LikeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButtonStyle.swift; sourceTree = "<group>"; };
+		17E9ECFF2BF7838E00142634 /* MyIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIcon.swift; sourceTree = "<group>"; };
+		17E9ED012BF794AF00142634 /* BoostometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostometerView.swift; sourceTree = "<group>"; };
+		17E9ED032BF79B9900142634 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		17B827882BF51A6C004B022F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		17B827822BF51A6C004B022F = {
+			isa = PBXGroup;
+			children = (
+				17B8278D2BF51A6C004B022F /* Boostometer */,
+				17B8278C2BF51A6C004B022F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		17B8278C2BF51A6C004B022F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				17B8278B2BF51A6C004B022F /* Boostometer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		17B8278D2BF51A6C004B022F /* Boostometer */ = {
+			isa = PBXGroup;
+			children = (
+				17B8278E2BF51A6C004B022F /* BoostometerApp.swift */,
+				17B827902BF51A6C004B022F /* ContentView.swift */,
+				17B8279C2BF529CE004B022F /* BoostometerFrame.swift */,
+				17B8279E2BF74CEB004B022F /* LikeButtonStyle.swift */,
+				17B827922BF51A6D004B022F /* Assets.xcassets */,
+				17B827942BF51A6D004B022F /* Preview Content */,
+				17E9ECFF2BF7838E00142634 /* MyIcon.swift */,
+				17E9ED012BF794AF00142634 /* BoostometerView.swift */,
+				17E9ED032BF79B9900142634 /* DeleteButton.swift */,
+			);
+			path = Boostometer;
+			sourceTree = "<group>";
+		};
+		17B827942BF51A6D004B022F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				17B827952BF51A6D004B022F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		17B8278A2BF51A6C004B022F /* Boostometer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17B827992BF51A6D004B022F /* Build configuration list for PBXNativeTarget "Boostometer" */;
+			buildPhases = (
+				17B827872BF51A6C004B022F /* Sources */,
+				17B827882BF51A6C004B022F /* Frameworks */,
+				17B827892BF51A6C004B022F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Boostometer;
+			productName = Boostometer;
+			productReference = 17B8278B2BF51A6C004B022F /* Boostometer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		17B827832BF51A6C004B022F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					17B8278A2BF51A6C004B022F = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 17B827862BF51A6C004B022F /* Build configuration list for PBXProject "Boostometer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 17B827822BF51A6C004B022F;
+			productRefGroup = 17B8278C2BF51A6C004B022F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				17B8278A2BF51A6C004B022F /* Boostometer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		17B827892BF51A6C004B022F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17B827962BF51A6D004B022F /* Preview Assets.xcassets in Resources */,
+				17B827932BF51A6D004B022F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		17B827872BF51A6C004B022F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17B827912BF51A6C004B022F /* ContentView.swift in Sources */,
+				17B8279D2BF529CE004B022F /* BoostometerFrame.swift in Sources */,
+				17E9ED002BF7838E00142634 /* MyIcon.swift in Sources */,
+				17B8279F2BF74CEB004B022F /* LikeButtonStyle.swift in Sources */,
+				17E9ED042BF79B9900142634 /* DeleteButton.swift in Sources */,
+				17E9ED022BF794AF00142634 /* BoostometerView.swift in Sources */,
+				17B8278F2BF51A6C004B022F /* BoostometerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		17B827972BF51A6D004B022F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		17B827982BF51A6D004B022F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		17B8279A2BF51A6D004B022F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Boostometer/Preview Content\"";
+				DEVELOPMENT_TEAM = 77FJ68JQHX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ada.Boostometer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		17B8279B2BF51A6D004B022F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Boostometer/Preview Content\"";
+				DEVELOPMENT_TEAM = 77FJ68JQHX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ada.Boostometer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		17B827862BF51A6C004B022F /* Build configuration list for PBXProject "Boostometer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17B827972BF51A6D004B022F /* Debug */,
+				17B827982BF51A6D004B022F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17B827992BF51A6D004B022F /* Build configuration list for PBXNativeTarget "Boostometer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17B8279A2BF51A6D004B022F /* Debug */,
+				17B8279B2BF51A6D004B022F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 17B827832BF51A6C004B022F /* Project object */;
+}
