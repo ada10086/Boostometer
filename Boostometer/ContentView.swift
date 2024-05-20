@@ -15,13 +15,17 @@ private enum Layout {
 
     static let deleteIconColorActive = Color(#colorLiteral(red: 1, green: 0.3347105384, blue: 0, alpha: 1))
 
-    /// Boostometer
-    static let meterColor = Color(#colorLiteral(red: 0.9039319158, green: 0.7066531777, blue: 1, alpha: 1))
-    static let shadowColor = Color(#colorLiteral(red: 0.7427280545, green: 0.2272533774, blue: 1, alpha: 1))
-    static let shadowRadius = CGFloat(24)
-    static let meterOutlineWidth = CGFloat(3)
-    static let meterAspectRatio = CGFloat(1.3)
-    static let meterSize = CGSize(width: 370, height: 161)
+    enum Meter {
+        static let color = Color(#colorLiteral(red: 0.9039319158, green: 0.7066531777, blue: 1, alpha: 1))
+        static let shadowColor = Color(#colorLiteral(red: 0.7427280545, green: 0.2272533774, blue: 1, alpha: 1))
+        static let shadowRadius = CGFloat(24)
+        static let outlineWidth = CGFloat(3)
+        static let size = CGSize(width: 370, height: 1)
+
+        static let needleGradient = LinearGradient(colors: [Color(#colorLiteral(red: 1, green: 0.06666666667, blue: 0.06666666667, alpha: 1)), color], startPoint: .top, endPoint: .bottom)
+        static let needleStartAngle = Angle(degrees: -70)
+        static let needleEndAngle = Angle(degrees: 70)
+    }
 
     static let needleAnimationDuration = TimeInterval(1.41)
     static let meterRemovalDuration = TimeInterval(0.45)
@@ -59,8 +63,9 @@ struct ContentView: View {
     @State private var colors: [Color] = Array(repeating: Color(#colorLiteral(red: 0.9039319158, green: 0.7066531777, blue: 1, alpha: 1)), count: Boostometer.textPaths.count)
     @State private var colorStep = 0
     @State private var timer: Timer?
-    @State private var emojiFontSize = CGFloat(80)
+    @State private var emojiFontSize = CGFloat(60)
     @State private var shouldAnimateDeleteButton = false
+    @State private var needleAngle = Layout.Meter.needleStartAngle
 
     var body: some View {
         VStack(spacing: .zero) {
@@ -92,8 +97,12 @@ struct ContentView: View {
     }
 
     private var boostometer: some View {
-        return Canvas { context, size in
+        Canvas { context, size in
             let rect = CGRect(origin: .zero, size: size)
+
+            if let outline = context.resolveSymbol(id: "Outline") {
+                context.draw(outline, in: rect)
+            }
 
             for index in 0..<Boostometer.textPaths.count {
                 if let symbol = context.resolveSymbol(id: index) {
@@ -101,17 +110,19 @@ struct ContentView: View {
                 }
             }
 
-            context.stroke(
-                Boostometer.outline(in: rect),
-                with: .color(Layout.meterColor),
-                lineWidth: Layout.meterOutlineWidth
-            )
+            if let needle = context.resolveSymbol(id: "Needle") {
+                context.draw(needle, in: rect)
+            }
 
             if let symbol = context.resolveSymbol(id: "💖") {
-                //TODO: calculate y offset
-                context.draw(symbol, at: CGPoint(x: size.width / 2, y: size.height / 2 - 20))
+                context.draw(symbol, at: CGPoint(x: size.width / 2, y: size.height * 0.28))
             }
         } symbols: {
+            Boostometer.Outline()
+                .stroke(Layout.Meter.color, lineWidth: Layout.Meter.outlineWidth)
+                .shadow(color: Layout.Meter.shadowColor, radius: Layout.Meter.shadowRadius)
+                .tag("Outline")
+
             /// Create text paths as symbols in order to animate fill color with explicit animation
             ForEach(Array(Boostometer.textPaths.enumerated()), id: \.offset) { index, path in
                 path
@@ -120,14 +131,27 @@ struct ContentView: View {
                     .tag(index)
             }
 
+            ZStack {
+                Boostometer.Needle()
+                    .fill(Layout.Meter.needleGradient)
+                    .rotationEffect(needleAngle, anchor: .init(x: 0.5, y: 0.6))
+                    .mask(
+                        Boostometer.Outline()
+                    )
+
+                // TODO: add needle tip
+            }
+            .tag("Needle")
+
             // TODO: animate emojiFontSize
             Text("💖")
                 .font(.system(size: emojiFontSize))
                 .tag("💖")
         }
         .aspectRatio(Boostometer.aspectRatio, contentMode: .fill)
-        .frame(width: Layout.meterSize.width, height: Layout.meterSize.height)
-        .shadow(color: Layout.shadowColor, radius: Layout.shadowRadius)
+        .frame(width: Layout.Meter.size.width, height: Layout.Meter.size.height)
+        .background(.green)
+        .shadow(color: Layout.Meter.shadowColor, radius: Layout.Meter.shadowRadius)
         // TODO: reset values when state is not charging or boosting
         .keyframeAnimator(
             initialValue: MeterValues(),
@@ -156,7 +180,6 @@ struct ContentView: View {
                 CubicKeyframe(1.2, duration: Layout.meterScaleDuration)
                 CubicKeyframe(0.5, duration: Layout.meterScaleDuration)
             }
-            // TODO: can animate colorStep?
         }
         .onChange(of: state) { oldValue, newValue in
             switch newValue {
@@ -196,8 +219,9 @@ struct ContentView: View {
             if newValue != .boosting {
                 colorStep = 0
                 for i in 0..<colors.count {
-                    colors[i] = Layout.meterColor
+                    colors[i] = Layout.Meter.color
                 }
+                needleAngle = Layout.Meter.needleStartAngle
             }
         }
     }
@@ -253,6 +277,9 @@ struct ContentView: View {
                         print("drag started, drag value: \(drag != nil)")
                         withAnimation {
                             state = .charging
+                        }
+                        withAnimation(.easeInOut(duration: Layout.needleAnimationDuration)) {
+                            needleAngle = Layout.Meter.needleEndAngle
                         }
                         if let location = drag?.location {
                             if deleteButtonFrame.contains(location) {
