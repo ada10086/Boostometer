@@ -34,13 +34,18 @@ private enum Layout {
     static let meterScaleDuration = TimeInterval(0.45 / 2)
 }
 
+enum SymbolID {
+    static let needle = "Needle"
+    static let outline = "Outline"
+    static let heart = "Heart"
+}
+
 struct MeterValues {
     var opacity = CGFloat(0.1)
     var angle = Angle(degrees: -45)
     var scale = CGFloat(1) // 1.2 -> 5
     var emojiSize = CGFloat(100)
 }
-
 
 extension ContentView {
     enum BoostState {
@@ -49,23 +54,18 @@ extension ContentView {
         case charging
         case boosting
     }
-
-    final class ViewModel: ObservableObject {
-        let boostState: CurrentValueSubject<BoostState, Never> = .init(BoostState.inactive)
-    }
 }
-
 
 struct ContentView: View {
     @State private var likeCount: Int = .zero
     @State private var state = BoostState.inactive
     @State private var deleteButtonFrame = CGRect(origin: .zero, size: .zero)
     @State private var colors: [Color] = Array(repeating: Color(#colorLiteral(red: 0.9039319158, green: 0.7066531777, blue: 1, alpha: 1)), count: Boostometer.textPaths.count)
-    @State private var colorStep = 0
+    @State private var boostStep = 0
     @State private var timer: Timer?
     @State private var emojiFontSize = CGFloat(60)
-    @State private var shouldAnimateDeleteButton = false
     @State private var needleAngle = Layout.Meter.needleStartAngle
+    @State private var showMeter = false
 
     var body: some View {
         VStack(spacing: .zero) {
@@ -75,14 +75,14 @@ struct ContentView: View {
                 boostometer
 
                 if state == .pendingRemoval {
-                    removeActionLabel
+                    removeReactionLabel
                 }
             }
 
             VStack(spacing: Layout.padding) {
                 deleteButton
 
-                likeButton
+                reactButton
 
                 Text("Hold to boost")
                     .font(.body)
@@ -100,7 +100,7 @@ struct ContentView: View {
         Canvas { context, size in
             let rect = CGRect(origin: .zero, size: size)
 
-            if let outline = context.resolveSymbol(id: "Outline") {
+            if let outline = context.resolveSymbol(id: SymbolID.outline) {
                 context.draw(outline, in: rect)
             }
 
@@ -110,18 +110,18 @@ struct ContentView: View {
                 }
             }
 
-            if let needle = context.resolveSymbol(id: "Needle") {
+            if let needle = context.resolveSymbol(id: SymbolID.needle) {
                 context.draw(needle, in: rect)
             }
 
-            if let symbol = context.resolveSymbol(id: "💖") {
+            if let symbol = context.resolveSymbol(id: SymbolID.heart) {
                 context.draw(symbol, at: CGPoint(x: size.width / 2, y: size.height * 0.28))
             }
         } symbols: {
             Boostometer.Outline()
                 .stroke(Layout.Meter.color, lineWidth: Layout.Meter.outlineWidth)
                 .shadow(color: Layout.Meter.shadowColor, radius: Layout.Meter.shadowRadius)
-                .tag("Outline")
+                .tag(SymbolID.outline)
 
             /// Create text paths as symbols in order to animate fill color with explicit animation
             ForEach(Array(Boostometer.textPaths.enumerated()), id: \.offset) { index, path in
@@ -135,31 +135,28 @@ struct ContentView: View {
                 Boostometer.Needle()
                     .fill(Layout.Meter.needleGradient)
                     .rotationEffect(needleAngle, anchor: .init(x: 0.5, y: 0.6))
-                    .mask(
-                        Boostometer.Outline()
-                    )
+                    .mask(Boostometer.Outline())
 
                 // TODO: add needle tip
             }
-            .tag("Needle")
+            .tag(SymbolID.needle)
 
             // TODO: animate emojiFontSize
             Text("💖")
                 .font(.system(size: emojiFontSize))
-                .tag("💖")
+                .tag(SymbolID.heart)
         }
         .aspectRatio(Boostometer.aspectRatio, contentMode: .fill)
         .frame(width: Layout.Meter.size.width, height: Layout.Meter.size.height)
         .background(.green)
         .shadow(color: Layout.Meter.shadowColor, radius: Layout.Meter.shadowRadius)
-        // TODO: reset values when state is not charging or boosting
         .keyframeAnimator(
             initialValue: MeterValues(),
-            trigger: state == .charging || state == .boosting
+            trigger: showMeter
         ) { content, value in
             content
-                .opacity(state == .charging || state == .boosting ? value.opacity : 0)
-                .rotationEffect(state == .charging || state == .boosting ? value.angle : Angle(degrees: -45), anchor: .bottom)
+                .opacity(showMeter ? value.opacity : 0)
+                .rotationEffect(showMeter || state == .pendingRemoval ? value.angle : Angle(degrees: -45), anchor: .bottom)
                 .scaleEffect(state == .boosting ? value.scale : 1, anchor: .bottom)
         } keyframes: { _ in
             KeyframeTrack(\.opacity) {
@@ -178,38 +175,45 @@ struct ContentView: View {
             KeyframeTrack(\.scale) {
                 LinearKeyframe(1, duration: Layout.needleAnimationDuration + 0.3)
                 CubicKeyframe(1.2, duration: Layout.meterScaleDuration)
-                CubicKeyframe(0.5, duration: Layout.meterScaleDuration)
+                CubicKeyframe(0.05, duration: Layout.meterScaleDuration)
             }
         }
         .onChange(of: state) { oldValue, newValue in
             switch newValue {
             case .charging:
+                debugPrint("state charging")
+                // TODO: fix animation overriding spring
+                withAnimation {
+                    showMeter = true
+                }
+
+                withAnimation(.linear(duration: Layout.needleAnimationDuration)) {
+                    needleAngle = Layout.Meter.needleEndAngle
+                }
+
                 timer = Timer.scheduledTimer(withTimeInterval: Layout.needleAnimationDuration / Double(Boostometer.textPaths.count), repeats: true) { timer in
                     withAnimation(.easeInOut(duration: Layout.needleAnimationDuration / Double(Boostometer.textPaths.count))) {
-                        colors[colorStep] = Color.white
+                        colors[boostStep] = Color.white
                     }
-                    colorStep += 1
-                    if colorStep >= colors.count {
+                    boostStep += 1
+                    if boostStep >= colors.count {
                         timer.invalidate()
-                        colorStep = 0
+                        boostStep = 0
                         state = .boosting
                     }
                 }
-                print("state charging")
 
             case .boosting:
-                print("implement haptic")
-                print("state boosting")
+                // TODO: implement haptics
+                debugPrint("state boosting")
 
             case .pendingRemoval:
-
-                withAnimation {
-                    shouldAnimateDeleteButton = true
-                    print("state pendingRemoval")
-                }
+                debugPrint("state pendingRemoval")
+                reset()
 
             case .inactive:
-                print("state inactive")
+                debugPrint("state inactive")
+                reset()
             }
 
             if newValue != .charging {
@@ -217,17 +221,23 @@ struct ContentView: View {
             }
 
             if newValue != .boosting {
-                colorStep = 0
+                boostStep = 0
                 for i in 0..<colors.count {
                     colors[i] = Layout.Meter.color
                 }
-                needleAngle = Layout.Meter.needleStartAngle
             }
         }
     }
 
-    private var removeActionLabel: some View {
-        // TODO: animate in out
+    private func reset() {
+        withAnimation(.easeOut(duration: 0.2)) {
+            needleAngle = Layout.Meter.needleStartAngle
+            showMeter = false
+        }
+    }
+
+    private var removeReactionLabel: some View {
+        // TODO: animate in out with delay
         Text("Remove reaction")
             .font(.headline)
             .padding(EdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16))
@@ -242,16 +252,19 @@ struct ContentView: View {
             .padding(.bottom, Layout.padding)
     }
 
+    @ViewBuilder
     private var deleteButton: some View {
+        // TODO: Animate
         DeleteButton(
             isActive: state == .pendingRemoval
         )
         .onPreferenceChange(DeleteButtonFrameKey.self) { frame in
             deleteButtonFrame = frame
         }
+        .transition(.move(edge: .bottom).combined(with: .opacity))
     }
 
-    private var likeButton: some View {
+    private var reactButton: some View {
         Button(
             action: {
                 likeCount += 1
@@ -265,32 +278,27 @@ struct ContentView: View {
                 }
             }
         )
-        .buttonStyle(LikeButtonStyle())
+        .buttonStyle(ReactButtonStyle())
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.5)
                 .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .global))
                 .onChanged { value in
                     switch value {
                     case .first(true):
-                        print("Long press 0.5 started ")
+                        print("Long press 0.5 started")
                     case .second(true, let drag):
                         print("drag started, drag value: \(drag != nil)")
-                        withAnimation {
+                        /// flag to prevent dragging gesture from resetting state to charging when state is boosting
+                        if state != .boosting {
                             state = .charging
-                        }
-                        withAnimation(.easeInOut(duration: Layout.needleAnimationDuration)) {
-                            needleAngle = Layout.Meter.needleEndAngle
-                        }
-                        if let location = drag?.location {
-                            if deleteButtonFrame.contains(location) {
-                                state = .pendingRemoval
+                            if let location = drag?.location {
+                                if deleteButtonFrame.contains(location) {
+                                    state = .pendingRemoval
+                                }
                             }
                         }
                     default:
-                        withAnimation {
-                            state = .inactive
-                        }
-                        print("inactive")
+                        break
                     }
                 }
                 .onEnded { value in
@@ -299,13 +307,7 @@ struct ContentView: View {
                         print("long press 0.5 stopped, value:\(value1)")
                     case .second(let value1, let drag):
                         print("drag stopped value1: \(value1), drag value:\(drag != nil)")
-                        withAnimation(.easeOut(duration: 0.1)) {
-                            if state == .pendingRemoval {
-                                state = .inactive
-                            } else if state == .charging {
-                                state = .inactive
-                            }
-                        }
+                        state = .inactive
                     }
                 }
         )

@@ -1,5 +1,5 @@
 //
-//  LikeButtonStyle.swift
+//  ReactButtonStyle.swift
 //  Boostometer
 //
 //  Created by Ada Jiang on 5/17/24.
@@ -16,7 +16,7 @@ private enum Layout {
     static let foregroundColorDefault = Color.white
 }
 
-struct LikeButtonStyle: ButtonStyle {
+struct ReactButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(Layout.buttonPadding)
@@ -34,5 +34,5 @@ struct LikeButtonStyle: ButtonStyle {
 
 #Preview {
     Button("💖") {}
-        .buttonStyle(LikeButtonStyle())
+        .buttonStyle(ReactButtonStyle())
 }
