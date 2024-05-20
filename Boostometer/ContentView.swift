@@ -43,7 +43,7 @@ enum SymbolID {
 struct MeterValues {
     var opacity = CGFloat(0.1)
     var angle = Angle(degrees: -45)
-    var scale = CGFloat(1) // 1.2 -> 5
+    var scale = CGFloat(1)
     var emojiSize = CGFloat(100)
 }
 
@@ -66,6 +66,7 @@ struct ContentView: View {
     @State private var emojiFontSize = CGFloat(60)
     @State private var needleAngle = Layout.Meter.needleStartAngle
     @State private var showMeter = false
+    @State private var reactButtonTrigger = false
 
     var body: some View {
         VStack(spacing: .zero) {
@@ -94,6 +95,9 @@ struct ContentView: View {
             Color.black
                 .ignoresSafeArea()
         )
+        .sensoryFeedback(.success, trigger: state) { oldValue, newValue in
+            newValue == .boosting
+        }
     }
 
     private var boostometer: some View {
@@ -148,8 +152,8 @@ struct ContentView: View {
         }
         .aspectRatio(Boostometer.aspectRatio, contentMode: .fill)
         .frame(width: Layout.Meter.size.width, height: Layout.Meter.size.height)
-        .background(.green)
         .shadow(color: Layout.Meter.shadowColor, radius: Layout.Meter.shadowRadius)
+        .sensoryFeedback(.impact(weight: .medium), trigger: showMeter)
         .keyframeAnimator(
             initialValue: MeterValues(),
             trigger: showMeter
@@ -171,7 +175,6 @@ struct ContentView: View {
                     spring: Spring(duration: 0.4, bounce: 0.6)
                 )
             }
-
             KeyframeTrack(\.scale) {
                 LinearKeyframe(1, duration: Layout.needleAnimationDuration + 0.3)
                 CubicKeyframe(1.2, duration: Layout.meterScaleDuration)
@@ -262,12 +265,14 @@ struct ContentView: View {
             deleteButtonFrame = frame
         }
         .transition(.move(edge: .bottom).combined(with: .opacity))
+        .sensoryFeedback(.impact(weight: .heavy), trigger: state == .pendingRemoval)
     }
 
     private var reactButton: some View {
         Button(
             action: {
                 likeCount += 1
+                reactButtonTrigger.toggle()
             },
             label: {
                 HStack(spacing: Layout.buttonSpacing) {
@@ -279,12 +284,15 @@ struct ContentView: View {
             }
         )
         .buttonStyle(ReactButtonStyle())
+        .sensoryFeedback(.impact(weight: .light), trigger: reactButtonTrigger)
+        .sensoryFeedback(.success, trigger: likeCount)
         .simultaneousGesture(
             LongPressGesture(minimumDuration: 0.5)
                 .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .global))
                 .onChanged { value in
                     switch value {
                     case .first(true):
+                        reactButtonTrigger.toggle()
                         print("Long press 0.5 started")
                     case .second(true, let drag):
                         print("drag started, drag value: \(drag != nil)")
