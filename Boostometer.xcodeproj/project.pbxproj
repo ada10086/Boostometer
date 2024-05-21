@@ -13,9 +13,9 @@
 		17B827962BF51A6D004B022F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17B827952BF51A6D004B022F /* Preview Assets.xcassets */; };
 		17B8279D2BF529CE004B022F /* Boostometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B8279C2BF529CE004B022F /* Boostometer.swift */; };
 		17B8279F2BF74CEB004B022F /* ReactButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B8279E2BF74CEB004B022F /* ReactButtonStyle.swift */; };
-		17E9ED002BF7838E00142634 /* MyIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ECFF2BF7838E00142634 /* MyIcon.swift */; };
 		17E9ED022BF794AF00142634 /* BoostometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ED012BF794AF00142634 /* BoostometerView.swift */; };
-		17E9ED042BF79B9900142634 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ED032BF79B9900142634 /* DeleteButton.swift */; };
+		17E9ED042BF79B9900142634 /* RemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ED032BF79B9900142634 /* RemoveButton.swift */; };
+		17E9ED082BFC947500142634 /* ReactButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E9ED072BFC947500142634 /* ReactButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +26,9 @@
 		17B827952BF51A6D004B022F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		17B8279C2BF529CE004B022F /* Boostometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boostometer.swift; sourceTree = "<group>"; };
 		17B8279E2BF74CEB004B022F /* ReactButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactButtonStyle.swift; sourceTree = "<group>"; };
-		17E9ECFF2BF7838E00142634 /* MyIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyIcon.swift; sourceTree = "<group>"; };
 		17E9ED012BF794AF00142634 /* BoostometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoostometerView.swift; sourceTree = "<group>"; };
-		17E9ED032BF79B9900142634 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+		17E9ED032BF79B9900142634 /* RemoveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveButton.swift; sourceTree = "<group>"; };
+		17E9ED072BFC947500142634 /* ReactButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,13 +63,12 @@
 			children = (
 				17B8278E2BF51A6C004B022F /* BoostometerApp.swift */,
 				17B827902BF51A6C004B022F /* ContentView.swift */,
+				17E9ED012BF794AF00142634 /* BoostometerView.swift */,
 				17B8279C2BF529CE004B022F /* Boostometer.swift */,
-				17B8279E2BF74CEB004B022F /* ReactButtonStyle.swift */,
+				17E9ED032BF79B9900142634 /* RemoveButton.swift */,
+				17E9ED092BFC98A700142634 /* ReactButton */,
 				17B827922BF51A6D004B022F /* Assets.xcassets */,
 				17B827942BF51A6D004B022F /* Preview Content */,
-				17E9ECFF2BF7838E00142634 /* MyIcon.swift */,
-				17E9ED012BF794AF00142634 /* BoostometerView.swift */,
-				17E9ED032BF79B9900142634 /* DeleteButton.swift */,
 			);
 			path = Boostometer;
 			sourceTree = "<group>";
@@ -80,6 +79,15 @@
 				17B827952BF51A6D004B022F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		17E9ED092BFC98A700142634 /* ReactButton */ = {
+			isa = PBXGroup;
+			children = (
+				17E9ED072BFC947500142634 /* ReactButton.swift */,
+				17B8279E2BF74CEB004B022F /* ReactButtonStyle.swift */,
+			);
+			path = ReactButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,9 +162,9 @@
 			files = (
 				17B827912BF51A6C004B022F /* ContentView.swift in Sources */,
 				17B8279D2BF529CE004B022F /* Boostometer.swift in Sources */,
-				17E9ED002BF7838E00142634 /* MyIcon.swift in Sources */,
 				17B8279F2BF74CEB004B022F /* ReactButtonStyle.swift in Sources */,
-				17E9ED042BF79B9900142634 /* DeleteButton.swift in Sources */,
+				17E9ED042BF79B9900142634 /* RemoveButton.swift in Sources */,
+				17E9ED082BFC947500142634 /* ReactButton.swift in Sources */,
 				17E9ED022BF794AF00142634 /* BoostometerView.swift in Sources */,
 				17B8278F2BF51A6C004B022F /* BoostometerApp.swift in Sources */,
 			);

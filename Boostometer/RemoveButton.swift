@@ -1,5 +1,5 @@
 //
-//  DeleteButton.swift
+//  RemoveButton.swift
 //  Boostometer
 //
 //  Created by Ada Jiang on 5/17/24.
@@ -13,14 +13,15 @@ private enum Layout {
     static let deleteIconColorActive = Color(#colorLiteral(red: 1, green: 0.3347105384, blue: 0, alpha: 1))
     static let deleteBackgroundColorDefault = Color(#colorLiteral(red: 0.3147028089, green: 0.3147028089, blue: 0.3147028089, alpha: 0.5))
     static let deleteBackgroundColorActive = Color(#colorLiteral(red: 1, green: 0.3347105384, blue: 0, alpha: 0.1))
+    static let scale = CGFloat(1.33)
 }
 
-struct DeleteButtonFrameKey: PreferenceKey {
+struct RemoveButtonFrameKey: PreferenceKey {
     static var defaultValue: CGRect = .zero
     static func reduce(value: inout CGRect, nextValue: () -> CGRect) {}
 }
 
-struct DeleteButton: View {
+struct RemoveButton: View {
     let isActive: Bool
 
     var body: some View {
@@ -31,12 +32,12 @@ struct DeleteButton: View {
                 Circle()
                     .fill(isActive ? Layout.deleteBackgroundColorActive : Layout.deleteBackgroundColorDefault)
             )
-            .scaleEffect(isActive ? 1.33 : 1, anchor: .center)
+            .scaleEffect(isActive ? Layout.scale : 1, anchor: .center)
             .background(
                 GeometryReader { geometry in
                     Color.clear
                         .preference(
-                            key: DeleteButtonFrameKey.self,
+                            key: RemoveButtonFrameKey.self,
                             value: geometry.frame(in: .global)
                         )
                 }
@@ -46,5 +47,5 @@ struct DeleteButton: View {
 }
 
 #Preview {
-    DeleteButton(isActive: true)
+    RemoveButton(isActive: true)
 }
