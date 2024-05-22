@@ -92,7 +92,7 @@ struct BoostometerView: View {
                     .fill(
                         Layout.textColor
                             .opacity(meterTextOpacities[index])
-                            .shadow(.inner(color: Layout.shadowColor.opacity(Layout.shadowOpacity), radius: 0.02))
+                            .shadow(.inner(color: Layout.shadowColor.opacity(Layout.shadowOpacity), radius: 0.015))
                     )
                     .frame(width: Boostometer.aspectRatio, height: 1)
                     .shadow(color: Layout.shadowColor, radius: Layout.shadowRadius)
@@ -112,8 +112,8 @@ struct BoostometerView: View {
             // TODO: shake animation
             Text("💖")
                 .font(.system(size: Layout.emojiFontSize))
-                .tag(SymbolID.heart)
                 .scaleEffect(emojiScale)
+                .tag(SymbolID.heart)
         }
         .aspectRatio(Boostometer.aspectRatio, contentMode: .fill)
         .frame(width: Layout.size.width, height: Layout.size.height)
@@ -124,9 +124,10 @@ struct BoostometerView: View {
         ) { content, value in
             content
                 .opacity(showMeter ? value.opacity : 0)
+                /// fix rotation angle to latest when pendingRemoval, prevent angle from animating back to start value
                 .rotationEffect(showMeter || state == .pendingRemoval ? value.angle : Layout.meterStartAngle, anchor: .bottom)
                 .scaleEffect(state == .boosting ? value.scale : 1, anchor: .bottom)
-                .shadow(color: Layout.shadowColor.opacity(value.shadowOpacity), radius: Layout.shadowRadius)
+                .shadow(color: Layout.shadowColor.opacity(showMeter ? value.shadowOpacity : .zero), radius: Layout.shadowRadius)
         } keyframes: { _ in
             KeyframeTrack(\.opacity) {
                 LinearKeyframe(1, duration: Layout.meterOpacityDuration1)
@@ -155,8 +156,12 @@ struct BoostometerView: View {
             switch newValue {
             case .charging:
                 debugPrint("state charging")
-                // TODO: fix animation overriding spring
-                withAnimation {
+                if oldValue == .pendingRemoval {
+                    /// override keyframe animations with regular animation
+                    withAnimation {
+                        showMeter = true
+                    }
+                } else {
                     showMeter = true
                 }
                 withAnimation(.linear(duration: Layout.needleAnimationDuration)) {

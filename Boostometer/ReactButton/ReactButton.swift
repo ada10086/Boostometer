@@ -29,10 +29,34 @@ struct ReactButton: View {
     }
 
     private var button: some View {
-        Button(
+        let longPressGesture =  LongPressGesture(minimumDuration: Layout.longPressMinDuration)
+            .onChanged { _ in
+                /// Button touch down
+                reactButtonTrigger.toggle()
+            }
+            .onEnded { _ in
+                state = .charging
+            }
+
+        let dragGesture = DragGesture(minimumDistance: .zero, coordinateSpace: .global)
+            .onChanged { value in
+                /// flag to prevent dragging gesture from resetting state to charging when state is boosting
+                guard state != .boosting else {
+                    return
+                }
+                if removeButtonFrame.contains(value.location) {
+                    state = .pendingRemoval
+                } else {
+                    state = .charging
+                }
+            }
+            .onEnded { _ in
+                state = .inactive
+            }
+
+        return Button(
             action: {
                 likeCount += 1
-                reactButtonTrigger.toggle()
                 addFloatingText()
             },
             label: {
@@ -48,39 +72,13 @@ struct ReactButton: View {
         .sensoryFeedback(.impact(weight: .light), trigger: reactButtonTrigger)
         .sensoryFeedback(.success, trigger: likeCount)
         .simultaneousGesture(
-            LongPressGesture(minimumDuration: Layout.longPressMinDuration)
-                .sequenced(before: DragGesture(minimumDistance: .zero, coordinateSpace: .global))
-                .onChanged { value in
-                    switch value {
-                    case .first(true):
-                        /// button touch down
-                        reactButtonTrigger.toggle()
-                    case .second(true, let drag):
-                        /// flag to prevent dragging gesture from resetting state to charging when state is boosting
-                        if state != .boosting {
-                            state = .charging
-                            if let location = drag?.location {
-                                if removeButtonFrame.contains(location) {
-                                    state = .pendingRemoval
-                                }
-                            }
-                        }
-                    default:
-                        break
-                    }
-                }
-                .onEnded { value in
-                    switch value {
-                    case .second:
-                        state = .inactive
-                    default:
-                        break
-                    }
-                }
+            longPressGesture
+                .sequenced(before: dragGesture)
         )
     }
 
     private var floatingTexts: some View {
+        // TODO: fix first Text not animating
         ForEach(textIDs, id: \.self) { id in
             Text("+1")
                 .id(id)
